@@ -1,24 +1,16 @@
-# Homelab - Reactive Resume Self-Hosted
+# Homelab Reactive Resume - SOC Lab
 
-Self-host de builder de curriculos para fugir de paywall e estudar infra real na Dell Latitude 3400.
+## 🔥 Wazuh SIEM - LAB ATIVO (22/09/2026)
+- **Status:** 🟢 Active (1) | 397 eventos / 24h
+- **Stack:** Docker - wazuh-indexer (OpenSearch 2.16), wazuh-manager, wazuh-dashboard
+- **Agente:** phpereira (Ubuntu) - Active
+- **Detecções:** Sudo and Sudo Caching, Valid Accounts, Disable or Modify Tools - MITRE ATT&CK
+- **Acesso:** https://localhost:443 | admin / SecretPassword
 
-## O que aprendi
-- Debug de env vars obrigatorias na v5: APP_URL, DATABASE_URL, AUTH_SECRET
-- Docker Compose com healthcheck do Postgres
-- Persistencia com volumes docker + backup com pg_dump
-- Acesso externo seguro via Tailscale sem abrir porta
-- Redes: ss -tulpn, tcpdump, bind 0.0.0.0 vs localhost
+### Evidência
+Dashboard com 47 Medium + 315 Low severity, Top agent phpereira
 
-## Arquitetura
-Dell Latitude 3400 (Piracicaba) -> Docker -> Postgres 16 + Reactive Resume + Tailscale VPN
-
-## Como rodar
-openssl rand -hex 32
-cp .env.example .env
+### Como reproduzir
+docker compose -f generate-indexer-certs.yml run --rm generator
 docker compose up -d
-docker compose logs -f reactive-resume
-
-## Backup
-docker compose exec postgres pg_dump -U postgres postgres > backup_$(date +%F).sql
-
-Stack: Docker, Postgres, Linux, Tailscale
+# Deploy agent DEB amd64 com server 192.168.1.4
